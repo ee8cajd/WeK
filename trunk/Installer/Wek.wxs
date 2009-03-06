@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
 <!--
 
 WeK - A magic packet Wake On LAN Utility for Microsoft Windows.
@@ -19,54 +21,64 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 -->
 
-<?xml version="1.0" encoding="UTF-8"?>
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
-     xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
-	<Product Id="46193435-7254-4646-953f-7693abc3f8d0" Name="WeK" Language="1033" Version="1.0.0" Manufacturer="Chris Dickson" UpgradeCode="c6f0e5e1-734d-4d4d-9577-5e26d9a8ac13">
-		<Package Id="*" InstallerVersion="200" Compressed="yes" Description="Wake on LAN Utility" Keywords="Installer" InstallPrivileges="limited" />
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+
+  <?define ProductCode="ba1657b5-4b17-41cd-abc2-8d6024e6fe96"?>
+  <?define UpgradeCode="c6f0e5e1-734d-4d4d-9577-5e26d9a8ac13"?>
+  <?define PackageCode="*"?>
+  <?define Manufacturer="Chris Dickson"?>
+  
+	<Product Id="$(var.ProductCode)" Name="WeK" Language="1033" Version="1.0.0" Manufacturer="$(var.Manufacturer)" UpgradeCode="$(var.UpgradeCode)">
+		<Package Id="$(var.PackageCode)" InstallerVersion="300" Compressed="yes" Description="Wake on LAN Utility" Keywords="Installer" InstallPrivileges="limited" />
 
 		<Media Id="1" Cabinet="WeK.cab" EmbedCab="yes" />
     
-    <!--<Icon Id="wek.ico" SourceFile="$(var.SolutionDir)UI\ResourceMasters\wek.ico" />-->
     <Icon Id="WeK.exe" SourceFile="$(var.Madcow.Wek.UI.TargetPath)" />
-    
-		<Directory Id="TARGETDIR" Name="SourceDir">
-			<Directory Id="ProgramFilesFolder">
-				<Directory Id="INSTALLLOCATION" Name="WeK">
-          <Component Id="MadcowWekUI" Guid="0deb4065-8a19-4937-9d61-9251d2f14b9c">
-            <File Id="WekExe" Name="$(var.Madcow.Wek.UI.TargetFileName)" DiskId="1" Source="$(var.Madcow.Wek.UI.TargetPath)" KeyPath="yes">
-              <!--<Shortcut Id="WekLnk" Directory="DesktopFolder" Name="WeK" WorkingDirectory="INSTALLDIR" />-->
-              <!--<Shortcut Id="WekProgramsLnk" Directory="ProgramMenuDir" WorkingDirectory="INSTALLLOCATION" Name="WeK" Icon="$(var.Madcow.Wek.UI.TargetFileName)" IconIndex="0" Advertise="no" />-->
-            </File>
-            <File Id="WekExeConfig" Name="$(var.Madcow.Wek.UI.TargetFileName).config" DiskId="1" Source="$(var.Madcow.Wek.UI.TargetPath).config" />
-            <RemoveFile Id="WakeUpHostsFile" On="uninstall" Name="wolhosts.xml" />
-            <RemoveFolder Id="DeleteShortcutFolder" Directory="ProgramMenuDir" On="uninstall" />
-          </Component>
-          <Component Id="MadcowComponentModel" Guid="edecd63a-9aec-4a71-a3e9-2d1848d6134b">
-            <File Id="MadcowComponentModelAssembly" Name="$(var.Madcow.ComponentModel.TargetFileName)" DiskId="1" Source="$(var.Madcow.ComponentModel.TargetPath)" />
-          </Component>
-          <Component Id="MadcowNetworkManagementComponent" Guid="a9fb8eec-0b17-489e-a0c5-c85049637fc8">
-            <File Id="MadcowNetworkManagementAssembly" Name="$(var.Madcow.Network.Management.TargetFileName)" DiskId="1" Source="$(var.Madcow.Network.Management.TargetPath)" />
-          </Component>
-          <Component Id="MadcowWekComponents" Guid="f183e546-895d-4a74-9d4d-c5051c5aac7b">
-            <File Id="MadcowWekComponentsAssembly" Name="$(var.Madcow.Wek.Components.TargetFileName)" DiskId="1" Source="$(var.Madcow.Wek.Components.TargetPath)" />
-          </Component>
-          <Component Id="MadcowWekUIControls" Guid="c28020b0-512a-4baa-8f05-0a5d75e6dd10">
-            <File Id="MadcowWekUIControlsAssembly" Name="$(var.Madcow.Wek.UI.Controls.TargetFileName)" DiskId="1" Source="$(var.Madcow.Wek.UI.Controls.TargetPath)" />
-          </Component>
-				</Directory>
-			</Directory>
 
-      <Directory Id="DesktopFolder" Name="Desktop" />
-      
-      <Directory Id="ProgramMenuFolder" Name="PMenu">
-        <Directory Id="ProgramMenuDir" Name="WeK" />
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLDIR" Name="WeK" />
       </Directory>
-
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ApplicationProgramsFolder" Name="WeK" />
+      </Directory>
     </Directory>
+
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="MadcowWekUI" Guid="0deb4065-8a19-4937-9d61-9251d2f14b9c">
+        <File Id="WekExe" Name="$(var.Madcow.Wek.UI.TargetFileName)" DiskId="1" Source="$(var.Madcow.Wek.UI.TargetPath)" KeyPath="yes" Checksum="yes" />
+        <RemoveFile Id="WakeUpHostsFile" On="uninstall" Name="wolhosts.xml" />
+      </Component>
+      <Component Id="MadcowWekUIConfig" Guid="2486ac9e-d3ad-4ee2-9255-e8e2703497dd">
+        <File Id="WekExeConfig" Name="$(var.Madcow.Wek.UI.TargetFileName).config" DiskId="1" Source="$(var.Madcow.Wek.UI.TargetPath).config" KeyPath="yes" />
+      </Component>
+      <Component Id="MadcowComponentModel" Guid="edecd63a-9aec-4a71-a3e9-2d1848d6134b">
+        <File Id="MadcowComponentModelAssembly" Name="$(var.Madcow.ComponentModel.TargetFileName)" DiskId="1" Source="$(var.Madcow.ComponentModel.TargetPath)" KeyPath="yes" />
+      </Component>
+      <Component Id="MadcowNetworkManagementComponent" Guid="a9fb8eec-0b17-489e-a0c5-c85049637fc8">
+        <File Id="MadcowNetworkManagementAssembly" Name="$(var.Madcow.Network.Management.TargetFileName)" DiskId="1" Source="$(var.Madcow.Network.Management.TargetPath)" KeyPath="yes" />
+      </Component>
+      <Component Id="MadcowWekComponents" Guid="f183e546-895d-4a74-9d4d-c5051c5aac7b">
+        <File Id="MadcowWekComponentsAssembly" Name="$(var.Madcow.Wek.Components.TargetFileName)" DiskId="1" Source="$(var.Madcow.Wek.Components.TargetPath)" KeyPath="yes" />
+      </Component>
+      <Component Id="MadcowWekUIControls" Guid="c28020b0-512a-4baa-8f05-0a5d75e6dd10">
+        <File Id="MadcowWekUIControlsAssembly" Name="$(var.Madcow.Wek.UI.Controls.TargetFileName)" DiskId="1" Source="$(var.Madcow.Wek.UI.Controls.TargetPath)" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id="ApplicationProgramsFolder">
+      <Component Id="MadcowWekUIShortcut" Guid="aae27a22-2425-492f-833b-3ae8887f26e1">
+        <Shortcut Id="WekExeStartMenuShortcut" Name="WeK" Description="Wake on LAN utility"
+                  Target="[INSTALLDIR]WeK.exe" WorkingDirectory="INSTALLDIR" />
+        <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall" />
+        <RegistryValue Root="HKCU" Key="Software\Madcow\WeK" Name="Installed" Type="integer" Value="1" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
 
     <Feature Id="WekFeature" Title="WeK" Level="1" Description="The WeK Utility Program Files." Absent="disallow" AllowAdvertise="no" InstallDefault="local">
       <ComponentRef Id="MadcowWekUI" />
+      <ComponentRef Id="MadcowWekUIConfig" />
+      <ComponentRef Id="MadcowWekUIShortcut" />
       <ComponentRef Id="MadcowComponentModel" />
       <ComponentRef Id="MadcowNetworkManagementComponent" />
       <ComponentRef Id="MadcowWekComponents" />
@@ -75,12 +87,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
     <PropertyRef Id="NETFRAMEWORK20" />
 
-    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" />
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
 
     <Property Id="ALLUSERS">1</Property>
     <Property Id="ARPNOREPAIR">1</Property>
     <Property Id="ARPPRODUCTICON" Value="WeK.exe" />
-    <Property Id="ARPURLINFOABOUT">http://www.codeplex.com/wek/</Property>
+    <Property Id="ARPURLINFOABOUT">http://wek.codeplex.com/</Property>
 
     <UIRef Id="WixUI_InstallDir" />
     <UIRef Id="WixUI_ErrorProgressText" />
@@ -88,6 +100,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
     <Condition Message="This application requires .NET Framework 2.0. Please install the .NET Framework then run this installer again.">
       <![CDATA[Installed OR NETFRAMEWORK20]]>
     </Condition>
+    
+    <Upgrade Id="$(var.UpgradeCode)">
+      <UpgradeVersion Property="OLDWEK" Minimum="0.0.0.0" Maximum="1.0.0" IncludeMaximum="yes" IncludeMinimum="no" />
+      <!--<UpgradeVersion Property="OLDWEK" Minimum="0.0.0.0" Maximum="1.0.0" IncludeMaximum="no" IncludeMinimum="yes" />-->
+      <!--<UpgradeVersion Property="NEWWEK" Minimum="1.0.0" IncludeMinimum="no" OnlyDetect="yes" />-->
+    </Upgrade>
 
+    <!-- Advanced Servicing
+    <UI>
+      <Error Id="3000"><![CDATA[The current version of WeK is already installed.]]></Error>
+    </UI>
+
+    <CustomAction Id="NewWekDetected" Error="3000" />
+    -->
+
+    <InstallExecuteSequence>
+      <!--<Custom Action="NewWekDetected" After="FindRelatedProducts">NEWWEK</Custom>-->
+      <RemoveExistingProducts Before="InstallInitialize" />
+      <!--<MigrateFeatureStates Suppress="no" />-->
+    </InstallExecuteSequence>
+
+    <!--
+    <InstallUISequence>
+      <Custom Action="NewWekDetected" After="FindRelatedProducts">NEWWEK</Custom>
+      <MigrateFeatureStates Suppress="no" />
+    </InstallUISequence>
+    -->
+    
   </Product>
 </Wix>
