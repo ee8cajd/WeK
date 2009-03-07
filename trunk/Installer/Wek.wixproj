@@ -20,6 +20,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <LinkerAdditionalOptions>-dWixUILicenseRtf=$(ProjectDir)GPLv2.rtf</LinkerAdditionalOptions>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Components\Madcow.ComponentModel\Madcow.ComponentModel.csproj">
