@@ -47,7 +47,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
     <DirectoryRef Id="INSTALLDIR">
       <Component Id="MadcowWekUI" Guid="0deb4065-8a19-4937-9d61-9251d2f14b9c">
         <File Id="WekExe" Name="$(var.Madcow.Wek.UI.TargetFileName)" DiskId="1" Source="$(var.Madcow.Wek.UI.TargetPath)" KeyPath="yes" Checksum="yes" />
-        <RemoveFile Id="WakeUpHostsFile" On="uninstall" Name="wolhosts.xml" />
       </Component>
       <Component Id="MadcowWekUIConfig" Guid="2486ac9e-d3ad-4ee2-9255-e8e2703497dd">
         <File Id="WekExeConfig" Name="$(var.Madcow.Wek.UI.TargetFileName).config" DiskId="1" Source="$(var.Madcow.Wek.UI.TargetPath).config" KeyPath="yes" />
@@ -63,6 +62,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
       </Component>
       <Component Id="MadcowWekUIControls" Guid="c28020b0-512a-4baa-8f05-0a5d75e6dd10">
         <File Id="MadcowWekUIControlsAssembly" Name="$(var.Madcow.Wek.UI.Controls.TargetFileName)" DiskId="1" Source="$(var.Madcow.Wek.UI.Controls.TargetPath)" KeyPath="yes" />
+      </Component>
+      <Component Id="GnuLicenseTextComponent" Guid="a2d10b8b-3e09-4eba-94f0-6ea4a702fbff">
+        <File Id="GnuLicenseV2TextFile" Name="LICENSE.txt" DiskId="1" Source="$(var.SolutionDir)LICENSE.txt" KeyPath="yes" />
       </Component>
     </DirectoryRef>
 
@@ -83,6 +85,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
       <ComponentRef Id="MadcowNetworkManagementComponent" />
       <ComponentRef Id="MadcowWekComponents" />
       <ComponentRef Id="MadcowWekUIControls" />
+      <ComponentRef Id="GnuLicenseTextComponent" />
     </Feature>
 
     <PropertyRef Id="NETFRAMEWORK20" />
