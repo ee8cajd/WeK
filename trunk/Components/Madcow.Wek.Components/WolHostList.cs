@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Xml;
 
@@ -41,9 +42,11 @@ namespace Madcow.Wek.Components
 
         private ObservableHostList _hosts;
         private bool _modified;
+        private bool _appDataLocationExists;
         private string _listVersion;
 
-        private const string DefaultWolHostsFilename = "wolhosts.xml";
+        private string ApplicationDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "WeK");
+        private const string DefaultWolHostsFilename = "wekhosts.xml";
 
         #endregion
 
@@ -58,6 +61,14 @@ namespace Madcow.Wek.Components
             _hosts.ListChanged += new EventHandler(delegate(object sender, EventArgs e) { _modified = true; });
 
             _modified = false;
+
+            _appDataLocationExists = Directory.Exists(ApplicationDataPath);
+            
+            if (_appDataLocationExists == false)
+            {
+                Directory.CreateDirectory(ApplicationDataPath);
+                _appDataLocationExists = true;
+            }
         }
 
         #endregion
@@ -110,45 +121,49 @@ namespace Madcow.Wek.Components
         /// <returns></returns>
         public bool Save()
         {
-            return Save(DefaultWolHostsFilename);
+            return Save(Path.Combine(ApplicationDataPath, DefaultWolHostsFilename));
         }
 
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="pathName"></param>
         /// <returns></returns>
-        public bool Save(string filename)
+        public bool Save(string pathName)
         {
             bool Success = true;
 
-            try
+            if (_appDataLocationExists)
             {
-                XmlWriterSettings WriterSettings = new XmlWriterSettings();
-                WriterSettings.Indent = true;
-                WriterSettings.NewLineHandling = NewLineHandling.Entitize;
-                WriterSettings.OmitXmlDeclaration = false;
-                WriterSettings.ConformanceLevel = ConformanceLevel.Document;
-                WriterSettings.CloseOutput = true;
-
-                using (XmlWriter HostsWriter = XmlWriter.Create(filename, WriterSettings))
+                try
                 {
-                    HostsWriter.WriteStartDocument();
-                    HostsWriter.WriteStartElement("wolHosts");
-                    HostsWriter.WriteAttributeString("version", "1.0");
+                    XmlWriterSettings WriterSettings = new XmlWriterSettings();
+                    WriterSettings.Indent = true;
+                    WriterSettings.NewLineHandling = NewLineHandling.Entitize;
+                    WriterSettings.OmitXmlDeclaration = false;
+                    WriterSettings.ConformanceLevel = ConformanceLevel.Document;
+                    WriterSettings.CloseOutput = true;
 
-                    foreach (WolHost CurrentHost in _hosts)
+                    using (XmlWriter HostsWriter = XmlWriter.Create(pathName, WriterSettings))
                     {
-                        PersistHost(HostsWriter, CurrentHost);
+                        HostsWriter.WriteStartDocument();
+                        HostsWriter.WriteStartElement("wekHosts");
+                        HostsWriter.WriteAttributeString("version", "1.0");
+
+                        foreach (WolHost CurrentHost in _hosts)
+                        {
+                            PersistHost(HostsWriter, CurrentHost);
+                        }
+
+                        HostsWriter.WriteEndElement();
                     }
 
-                    HostsWriter.WriteEndElement();
+                    _modified = false;
                 }
-
-                _modified = false;
-            }
-            catch (Exception)
-            {
-                Success = false;
+                catch (Exception)
+                {
+                    Success = false;
+                }
             }
 
             return Success;
@@ -160,61 +175,65 @@ namespace Madcow.Wek.Components
         /// <returns></returns>
         public bool Load()
         {
-            return Load(DefaultWolHostsFilename);
+            return Load(Path.Combine(ApplicationDataPath, DefaultWolHostsFilename));
         }
 
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="pathName"></param>
         /// <returns></returns>
-        public bool Load(string filename)
+        public bool Load(string pathName)
         {
             bool Success = true;
 
-            _hosts.Clear();
-            _modified = false;
-
-            try
+            if (_appDataLocationExists)
             {
-                XmlReaderSettings ReaderSettings = new XmlReaderSettings();
-                ReaderSettings.CloseInput = true;
-                ReaderSettings.ConformanceLevel = ConformanceLevel.Document;
-                ReaderSettings.IgnoreComments = true;
-                ReaderSettings.IgnoreWhitespace = true;
-                ReaderSettings.ProhibitDtd = true;
-                ReaderSettings.ValidationType = ValidationType.None;
-
-                using (XmlReader HostsReader = XmlReader.Create(filename, ReaderSettings))
-                {
-                    HostsReader.ReadStartElement("wolHosts");
-
-                    if (HostsReader.HasAttributes)
-                    {
-                        _listVersion = HostsReader.GetAttribute("version");
-                    }
-
-                    while (HostsReader.IsStartElement())
-                    {
-                        _hosts.Add(ReadHostXml(HostsReader));
-                    }
-
-                    HostsReader.ReadEndElement();
-                }
-
+                _hosts.Clear();
                 _modified = false;
-            }
-            catch (XmlException)
-            {
-                Success = false;
-            }
-            catch (FileNotFoundException)
-            {
-                Success = false;
-            }
-            catch (Exception)
-            {
-                Success = false;
-                throw;
+
+                try
+                {
+                    XmlReaderSettings ReaderSettings = new XmlReaderSettings();
+                    ReaderSettings.CloseInput = true;
+                    ReaderSettings.ConformanceLevel = ConformanceLevel.Document;
+                    ReaderSettings.IgnoreComments = true;
+                    ReaderSettings.IgnoreWhitespace = true;
+                    ReaderSettings.ProhibitDtd = true;
+                    ReaderSettings.ValidationType = ValidationType.None;
+
+                    using (XmlReader HostsReader = XmlReader.Create(pathName, ReaderSettings))
+                    {
+                        HostsReader.ReadStartElement("wekHosts");
+
+                        if (HostsReader.HasAttributes)
+                        {
+                            _listVersion = HostsReader.GetAttribute("version");
+                        }
+
+                        while (HostsReader.IsStartElement())
+                        {
+                            _hosts.Add(ReadHostXml(HostsReader));
+                        }
+
+                        HostsReader.ReadEndElement();
+                    }
+
+                    _modified = false;
+                }
+                catch (XmlException)
+                {
+                    Success = false;
+                }
+                catch (FileNotFoundException)
+                {
+                    Success = false;
+                }
+                catch (Exception)
+                {
+                    Success = false;
+                    throw;
+                }
             }
 
             return Success;
@@ -341,7 +360,7 @@ namespace Madcow.Wek.Components
 
         #region Helper Classes
 
-        public sealed class ObservableHostList : List<WolHost>
+        private sealed class ObservableHostList : List<WolHost>, ICollection<WolHost>
         {
             #region Public Events
 
