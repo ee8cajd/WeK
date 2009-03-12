@@ -23,12 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
 
-  <?define ProductCode="ba1657b5-4b17-41cd-abc2-8d6024e6fe96"?>
+  <?define ProductCode="18420e96-cb81-4816-9464-e62cc3d0ad8f"?>
   <?define UpgradeCode="c6f0e5e1-734d-4d4d-9577-5e26d9a8ac13"?>
   <?define PackageCode="*"?>
   <?define Manufacturer="Chris Dickson"?>
   
-	<Product Id="$(var.ProductCode)" Name="WeK" Language="1033" Version="1.0.0" Manufacturer="$(var.Manufacturer)" UpgradeCode="$(var.UpgradeCode)">
+	<Product Id="$(var.ProductCode)" Name="WeK" Language="1033" Version="1.0.1" Manufacturer="$(var.Manufacturer)" UpgradeCode="$(var.UpgradeCode)">
 		<Package Id="$(var.PackageCode)" InstallerVersion="300" Compressed="yes" Description="Wake on LAN Utility" Keywords="Installer" InstallPrivileges="limited" />
 
 		<Media Id="1" Cabinet="WeK.cab" EmbedCab="yes" />
@@ -105,9 +105,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
     </Condition>
     
     <Upgrade Id="$(var.UpgradeCode)">
-      <UpgradeVersion Property="OLDWEK" Minimum="0.0.0.0" Maximum="1.0.0" IncludeMaximum="yes" IncludeMinimum="no" />
+      <UpgradeVersion Property="OLDWEK" Minimum="0.0.0.0" Maximum="1.0.1" IncludeMinimum="yes" IncludeMaximum="no" />
       <!--<UpgradeVersion Property="OLDWEK" Minimum="0.0.0.0" Maximum="1.0.0" IncludeMaximum="no" IncludeMinimum="yes" />-->
-      <!--<UpgradeVersion Property="NEWWEK" Minimum="1.0.0" IncludeMinimum="no" OnlyDetect="yes" />-->
+      <!--<UpgradeVersion Property="NEWWEK" Minimum="1.0.1" IncludeMinimum="no" OnlyDetect="yes" />-->
     </Upgrade>
 
     <!-- Advanced Servicing
