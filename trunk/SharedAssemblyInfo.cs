@@ -11,3 +11,5 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyProduct("WeK")]
 
 [assembly: ComVisible(false)]
+
+[assembly: AssemblyFileVersion("1.0.1.0")]

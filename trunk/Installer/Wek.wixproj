@@ -22,6 +22,19 @@
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
     <LinkerAdditionalOptions>-dWixUILicenseRtf=$(ProjectDir)GPLv2.rtf</LinkerAdditionalOptions>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugWithTests|x86' ">
+    <DefineConstants>Debug</DefineConstants>
+    <Cultures>
+    </Cultures>
+    <LinkerAdditionalOptions>-dWixUILicenseRtf=$(ProjectDir)GPLv2.rtf</LinkerAdditionalOptions>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseWithTests|x86' ">
+    <LinkerAdditionalOptions>-dWixUILicenseRtf=$(ProjectDir)GPLv2.rtf</LinkerAdditionalOptions>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Components\Madcow.ComponentModel\Madcow.ComponentModel.csproj">
       <Name>Madcow.ComponentModel</Name>
