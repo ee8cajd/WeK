@@ -36,6 +36,7 @@ namespace Madcow.Wek.UI
             this.CommitButton = new System.Windows.Forms.Button();
             this.VersionLabel = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+			this.LicenseLinkLabel = new System.Windows.Forms.LinkLabel();
             this.CopyrightLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
@@ -116,6 +117,19 @@ namespace Madcow.Wek.UI
             this.linkLabel1.TabIndex = 5;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "http://wek.codeplex.com/";
+			this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabel_LinkClicked);
+			//
+			// LicenseLinkLabel
+			//
+			this.LicenseLinkLabel.AutoSize = true;
+			this.LicenseLinkLabel.Location = new System.Drawing.Point(151, 144);
+			this.LicenseLinkLabel.Margin = new System.Windows.Forms.Padding(3, 16, 3, 0);
+			this.LicenseLinkLabel.Name = "LicenseLinkLabel";
+			this.LicenseLinkLabel.Size = new System.Drawing.Size(200, 13);
+			this.LicenseLinkLabel.TabIndex = 8;
+			this.LicenseLinkLabel.TabStop = true;
+			this.LicenseLinkLabel.Text = "http://wek.codeplex.com/license/";
+			this.LicenseLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabel_LinkClicked);
             // 
             // CopyrightLabel
             // 
@@ -146,6 +160,7 @@ namespace Madcow.Wek.UI
             this.Controls.Add(this.label1);
             this.Controls.Add(this.CopyrightLabel);
             this.Controls.Add(this.linkLabel1);
+			this.Controls.Add(this.LicenseLinkLabel);
             this.Controls.Add(this.VersionLabel);
             this.Controls.Add(this.CommitButton);
             this.Controls.Add(this.ApplicationDescriptionLabel);
@@ -176,6 +191,7 @@ namespace Madcow.Wek.UI
         private System.Windows.Forms.Button CommitButton;
         private System.Windows.Forms.Label VersionLabel;
         private System.Windows.Forms.LinkLabel linkLabel1;
+		private System.Windows.Forms.LinkLabel LicenseLinkLabel;
         private System.Windows.Forms.Label CopyrightLabel;
         private System.Windows.Forms.Label label1;
     }
