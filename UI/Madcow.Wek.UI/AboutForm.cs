@@ -69,6 +69,38 @@ namespace Madcow.Wek.UI
                     this.VersionLabel.Text = String.Format(this.VersionLabel.Text, ((AssemblyFileVersionAttribute)CustomAttribute).Version);
                 }
             }
+
+			this.linkLabel1.Links.Add(new LinkLabel.Link(0, this.linkLabel1.Text.Length, this.linkLabel1.Text));
+			this.LicenseLinkLabel.Links.Add(new LinkLabel.Link(0, this.LicenseLinkLabel.Text.Length, this.LicenseLinkLabel.Text));
         }
+
+		#region Event Handlers
+
+		/// <summary>
+		/// Click event handler for LinkLabel controls.
+		/// </summary>
+		/// <param name="sender">The LinkLabel control raising the event.</param>
+		/// <param name="e">Event specific data.</param>
+		protected void LinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+		{
+			string LinkTarget = e.Link.LinkData as string;
+
+			if(LinkTarget != null)
+			{
+				try
+				{
+					System.Diagnostics.Process.Start(LinkTarget);
+				}
+				catch
+				{
+					MessageBox.Show(String.Format("Unable to launch '{0}'.", LinkTarget), 
+									"About WeK",
+									MessageBoxButtons.OK,
+									MessageBoxIcon.Error);
+				}
+			}
+		}
+
+		#endregion
     }
 }

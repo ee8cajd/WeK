@@ -23,13 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
 
-  <?define ProductCode="18420e96-cb81-4816-9464-e62cc3d0ad8f"?>
+  <?define ProductCode="a79378a5-4fc1-4247-b6bb-5fa1b7dcd3fc"?>
   <?define UpgradeCode="c6f0e5e1-734d-4d4d-9577-5e26d9a8ac13"?>
   <?define PackageCode="*"?>
   <?define Manufacturer="Chris Dickson"?>
+  <?define ProductVersion="1.0.2"?>
   
-	<Product Id="$(var.ProductCode)" Name="WeK" Language="1033" Version="1.0.1" Manufacturer="$(var.Manufacturer)" UpgradeCode="$(var.UpgradeCode)">
-		<Package Id="$(var.PackageCode)" InstallerVersion="300" Compressed="yes" Description="Wake on LAN Utility" Keywords="Installer" InstallPrivileges="limited" />
+	<Product Id="$(var.ProductCode)" Name="WeK" Language="1033" Version="$(var.ProductVersion)" Manufacturer="$(var.Manufacturer)" UpgradeCode="$(var.UpgradeCode)">
+		<Package Id="$(var.PackageCode)" InstallerVersion="300" Compressed="yes" Description="Wake on LAN Utility" Keywords="Installer" InstallScope="perMachine" />
 
 		<Media Id="1" Cabinet="WeK.cab" EmbedCab="yes" />
     
@@ -92,7 +93,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
 
-    <Property Id="ALLUSERS">1</Property>
     <Property Id="ARPNOREPAIR">1</Property>
     <Property Id="ARPPRODUCTICON" Value="WeK.exe" />
     <Property Id="ARPURLINFOABOUT">http://wek.codeplex.com/</Property>
@@ -105,31 +105,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
     </Condition>
     
     <Upgrade Id="$(var.UpgradeCode)">
-      <UpgradeVersion Property="OLDWEK" Minimum="0.0.0.0" Maximum="1.0.1" IncludeMinimum="yes" IncludeMaximum="no" />
-      <!--<UpgradeVersion Property="OLDWEK" Minimum="0.0.0.0" Maximum="1.0.0" IncludeMaximum="no" IncludeMinimum="yes" />-->
-      <!--<UpgradeVersion Property="NEWWEK" Minimum="1.0.1" IncludeMinimum="no" OnlyDetect="yes" />-->
+      <UpgradeVersion Property="OLDWEK" Minimum="0.0.0.0" Maximum="$(var.ProductVersion)" IncludeMinimum="yes" IncludeMaximum="no" />
     </Upgrade>
 
-    <!-- Advanced Servicing
-    <UI>
-      <Error Id="3000"><![CDATA[The current version of WeK is already installed.]]></Error>
-    </UI>
-
-    <CustomAction Id="NewWekDetected" Error="3000" />
-    -->
-
     <InstallExecuteSequence>
-      <!--<Custom Action="NewWekDetected" After="FindRelatedProducts">NEWWEK</Custom>-->
       <RemoveExistingProducts Before="InstallInitialize" />
-      <!--<MigrateFeatureStates Suppress="no" />-->
     </InstallExecuteSequence>
 
-    <!--
-    <InstallUISequence>
-      <Custom Action="NewWekDetected" After="FindRelatedProducts">NEWWEK</Custom>
-      <MigrateFeatureStates Suppress="no" />
-    </InstallUISequence>
-    -->
-    
   </Product>
 </Wix>
