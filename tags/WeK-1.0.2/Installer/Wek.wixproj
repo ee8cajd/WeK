@@ -1,0 +1,85 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>3.0</ProductVersion>
+    <ProjectGuid>{6b22c66b-f964-4bb2-8bd9-2d0878421f71}</ProjectGuid>
+    <SchemaVersion>2.0</SchemaVersion>
+    <OutputName>WeK</OutputName>
+    <OutputType>Package</OutputType>
+    <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v3.0\Wix.targets</WixTargetsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <DefineConstants>Debug</DefineConstants>
+    <Cultures>
+    </Cultures>
+    <LinkerAdditionalOptions>-dWixUILicenseRtf=$(ProjectDir)GPLv2.rtf</LinkerAdditionalOptions>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <LinkerAdditionalOptions>-dWixUILicenseRtf=$(ProjectDir)GPLv2.rtf</LinkerAdditionalOptions>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugWithTests|x86' ">
+    <DefineConstants>Debug</DefineConstants>
+    <Cultures>
+    </Cultures>
+    <LinkerAdditionalOptions>-dWixUILicenseRtf=$(ProjectDir)GPLv2.rtf</LinkerAdditionalOptions>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseWithTests|x86' ">
+    <LinkerAdditionalOptions>-dWixUILicenseRtf=$(ProjectDir)GPLv2.rtf</LinkerAdditionalOptions>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Components\Madcow.ComponentModel\Madcow.ComponentModel.csproj">
+      <Name>Madcow.ComponentModel</Name>
+      <Project>{8be04423-d541-48ab-a5d0-9cbc37ce8ae8}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Components\Madcow.Network.Management\Madcow.Network.Management.csproj">
+      <Name>Madcow.Network.Management</Name>
+      <Project>{f14227fc-3d29-43f8-871c-433e37272da7}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Components\Madcow.Wek.Components\Madcow.Wek.Components.csproj">
+      <Name>Madcow.Wek.Components</Name>
+      <Project>{64c25daf-e2d1-4acb-9f68-d84557a4ffae}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\UI\Madcow.Wek.UI.Controls\Madcow.Wek.UI.Controls.csproj">
+      <Name>Madcow.Wek.UI.Controls</Name>
+      <Project>{02b4bfef-5721-4aea-9a3d-8f7bddb12b5f}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\UI\Madcow.Wek.UI\Madcow.Wek.UI.csproj">
+      <Name>Madcow.Wek.UI</Name>
+      <Project>{0817c433-ca33-42fd-a1b0-4283b0681eeb}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WixExtension Include="WixNetFxExtension">
+      <HintPath>$(WixExtDir)\WixNetFxExtension.dll</HintPath>
+    </WixExtension>
+    <WixExtension Include="WixUIExtension">
+      <HintPath>$(WixExtDir)\WixUIExtension.dll</HintPath>
+    </WixExtension>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Wek.wxs" />
+  </ItemGroup>
+  <Import Project="$(WixTargetsPath)" />
+  <!--
+	To modify your build process, add your task inside one of the targets below and uncomment it.
+	Other similar extension points exist, see Wix.targets.
+	<Target Name="BeforeBuild">
+	</Target>
+	<Target Name="AfterBuild">
+	</Target>
+	-->
+</Project>
