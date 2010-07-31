@@ -23,11 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
 
-  <?define ProductCode="a79378a5-4fc1-4247-b6bb-5fa1b7dcd3fc"?>
+  <?define ProductCode="8a43f15c-0d31-4baf-ba1a-044e4e2ecb2d"?>
   <?define UpgradeCode="c6f0e5e1-734d-4d4d-9577-5e26d9a8ac13"?>
   <?define PackageCode="*"?>
   <?define Manufacturer="Chris Dickson"?>
-  <?define ProductVersion="1.0.2"?>
+  <?define ProductVersion="!(bind.fileVersion.WekExe)"?>
   
 	<Product Id="$(var.ProductCode)" Name="WeK" Language="1033" Version="$(var.ProductVersion)" Manufacturer="$(var.Manufacturer)" UpgradeCode="$(var.UpgradeCode)">
 		<Package Id="$(var.PackageCode)" InstallerVersion="300" Compressed="yes" Description="Wake on LAN Utility" Keywords="Installer" InstallScope="perMachine" />
@@ -61,6 +61,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
       <Component Id="MadcowWekComponents" Guid="f183e546-895d-4a74-9d4d-c5051c5aac7b">
         <File Id="MadcowWekComponentsAssembly" Name="$(var.Madcow.Wek.Components.TargetFileName)" DiskId="1" Source="$(var.Madcow.Wek.Components.TargetPath)" KeyPath="yes" />
       </Component>
+      <Component Id="MadcowUIControls" Guid="591094b3-0060-4848-a41b-599c1522fbb0">
+        <File Id="MadcowUIControlsAssembly" Name="$(var.Madcow.UI.Controls.TargetFileName)" DiskId="1" Source="$(var.Madcow.UI.Controls.TargetPath)" KeyPath="yes" />
+      </Component>
       <Component Id="MadcowWekUIControls" Guid="c28020b0-512a-4baa-8f05-0a5d75e6dd10">
         <File Id="MadcowWekUIControlsAssembly" Name="$(var.Madcow.Wek.UI.Controls.TargetFileName)" DiskId="1" Source="$(var.Madcow.Wek.UI.Controls.TargetPath)" KeyPath="yes" />
       </Component>
@@ -68,7 +71,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
         <File Id="GnuLicenseV2TextFile" Name="LICENSE.txt" DiskId="1" Source="$(var.SolutionDir)LICENSE.txt" KeyPath="yes" />
       </Component>
     </DirectoryRef>
-
+    
     <DirectoryRef Id="ApplicationProgramsFolder">
       <Component Id="MadcowWekUIShortcut" Guid="aae27a22-2425-492f-833b-3ae8887f26e1">
         <Shortcut Id="WekExeStartMenuShortcut" Name="WeK" Description="Wake on LAN utility"
@@ -85,6 +88,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
       <ComponentRef Id="MadcowComponentModel" />
       <ComponentRef Id="MadcowNetworkManagementComponent" />
       <ComponentRef Id="MadcowWekComponents" />
+      <ComponentRef Id="MadcowUIControls" />
       <ComponentRef Id="MadcowWekUIControls" />
       <ComponentRef Id="GnuLicenseTextComponent" />
     </Feature>
@@ -106,11 +110,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
     
     <Upgrade Id="$(var.UpgradeCode)">
       <UpgradeVersion Property="OLDWEK" Minimum="0.0.0.0" Maximum="$(var.ProductVersion)" IncludeMinimum="yes" IncludeMaximum="no" />
+	    <UpgradeVersion Property="NEWWEK" Minimum="$(var.ProductVersion)" IncludeMinimum="no" OnlyDetect="yes" />
     </Upgrade>
 
     <InstallExecuteSequence>
+	  <Custom Action="NewWekDetected" After="FindRelatedProducts">NEWWEK</Custom>
       <RemoveExistingProducts Before="InstallInitialize" />
     </InstallExecuteSequence>
 
+    <UI>
+      <Error Id="2000">There is a later version of [ProductName] already installed.</Error> 
+    </UI>
+
+    <CustomAction Id="NewWekDetected" Error="2000" />
   </Product>
 </Wix>

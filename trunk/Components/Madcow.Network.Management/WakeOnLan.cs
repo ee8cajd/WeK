@@ -30,29 +30,59 @@ using System.Net.Sockets;
 namespace Madcow.Network.Management
 {
     /// <summary>
-    /// 
+    /// Class providing a high level interface to Wake On LAN host control functionality.
     /// </summary>
     public class WakeOnLan
     {
         #region Public Methods
 
         /// <summary>
-        /// 
+        /// Send a Wake On LAN request to a machine.
         /// </summary>
-        /// <param name="machineAddress"></param>
+        /// <param name="machineAddress">The MAC Address of the machine to be woken.</param>
         /// <returns></returns>
         public static bool WakeMachine(PhysicalAddress machineAddress)
         {
-            return WakeMachine(machineAddress, null);
+            return WakeMachine(machineAddress, null, null, null);
         }
 
         /// <summary>
-        /// 
+        /// Send a Wake On LAN request to a machine.
         /// </summary>
-        /// <param name="machineAddress"></param>
-        /// <param name="secureOnPassword"></param>
+        /// <param name="machineAddress">The MAC Address of the machine to be woken.</param>
+        /// <param name="remoteHost">The remote host address and port of the machine to be woken.</param>
+        /// <param name="hostSubnetMask">The subnet mask for the network on which the machine to be woken resides.</param>
+        /// <returns></returns>
+        public static bool WakeMachine(PhysicalAddress machineAddress,
+                                       IPEndPoint remoteHostToWake,
+                                       IPAddress remoteHostSubnetMask)
+        {
+            return WakeMachine(machineAddress, null, remoteHostToWake, remoteHostSubnetMask);
+        }
+
+        /// <summary>
+        /// Send a Wake On LAN request to a machine.
+        /// </summary>
+        /// <param name="machineAddress">The MAC Address of the machine to be woken.</param>
+        /// <param name="secureOnPassword">The password required by the machine to be woken.</param>
         /// <returns></returns>
         public static bool WakeMachine(PhysicalAddress machineAddress, PhysicalAddress secureOnPassword)
+        {
+            return WakeMachine(machineAddress, secureOnPassword, null, null);
+        }
+
+        /// <summary>
+        /// Send a Wake On LAN request to a machine.
+        /// </summary>
+        /// <param name="machineAddress">The MAC Address of the machine to be woken.</param>
+        /// <param name="secureOnPassword">The password required by the machine to be woken.</param>
+        /// <param name="remoteHost">The remote host address and port of the machine to be woken.</param>
+        /// <param name="hostSubnetMask">The subnet mask for the network on which the machine to be woken resides.</param>
+        /// <returns></returns>
+        public static bool WakeMachine(PhysicalAddress machineAddress,
+                                       PhysicalAddress secureOnPassword,
+                                       IPEndPoint remoteHostToWake,
+                                       IPAddress remoteHostSubnetMask)
         {
             bool PacketSent = true;
 
@@ -79,7 +109,7 @@ namespace Madcow.Network.Management
             byte[] PayloadMac = machineAddress.GetAddressBytes();
             int PayloadEnd = FrameSize - (SecureOnPasswordRequired ? 12 : 6);
 
-            for (int i = 6; i <= PayloadEnd ; i += 6)
+            for (int i = 6; i <= PayloadEnd; i += 6)
             {
                 Array.Copy(PayloadMac, 0, WolFrame, i, 6);
             }
@@ -89,11 +119,22 @@ namespace Madcow.Network.Management
                 // Send the frame out on the network.
                 using (UdpClient WolNetwork = new UdpClient())
                 {
-                    WolNetwork.Connect(IPAddress.Broadcast, 0);
+                    IPEndPoint WakeEndpoint;
+
+                    if (remoteHostToWake == null || remoteHostSubnetMask == null)
+                    {
+                        WakeEndpoint = new IPEndPoint(IPAddress.Broadcast, 0);
+                    }
+                    else
+                    {
+                        WakeEndpoint = CalculateSubnetBroadcastAddress(remoteHostToWake, remoteHostSubnetMask);
+                    }
+
+                    WolNetwork.Connect(WakeEndpoint);
                     WolNetwork.Send(WolFrame, WolFrame.Length);
                 }
             }
-            catch (SocketException SockEx)
+            catch (SocketException)
             {
                 PacketSent = false;
             }
@@ -101,49 +142,40 @@ namespace Madcow.Network.Management
             return PacketSent;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="machineAddress"></param>
-        public static void WakeMachineAsync(PhysicalAddress machineAddress)
-        {
-
-        }
-
         #endregion
 
         #region Private Methods
 
-#if DEBUG
-
         /// <summary>
-        /// 
+        /// Calculates the broadcast address for a given IP address and subnet mask.
         /// </summary>
-        /// <param name="frame"></param>
-        /// <param name="filename"></param>
-        private void DumpWolFrameToFile(byte[] frame, string filename)
+        /// <param name="remoteHost">The remote host IP address.</param>
+        /// <param name="hostSubnetMask">The subnet mask defining the network in which the given IP address operates.</param>
+        /// <returns>A new IPEndpoint object initialised to the broadcast address for the remoteHost supplied.</returns>
+        private static IPEndPoint CalculateSubnetBroadcastAddress(IPEndPoint remoteHost, IPAddress hostSubnetMask)
         {
-            System.Text.StringBuilder FrameData = new System.Text.StringBuilder();
-            
-            for (int i = 0; i < frame.Length; i++)
+            IPEndPoint WakeEndpoint;
+
+            // Calculate the broadcast address required for IP Directed Broadcast.
+            byte[] BroadcastAddressBytes = remoteHost.Address.GetAddressBytes();
+            byte[] HostSubnetMaskBytes = hostSubnetMask.GetAddressBytes();
+
+            if (BroadcastAddressBytes.Length == HostSubnetMaskBytes.Length)
             {
-                if ((i + 1) % 6 != 0)
+                for (int i = 0; i < BroadcastAddressBytes.Length; i++)
                 {
-                    FrameData.Append(frame[i].ToString("X2"));
+                    BroadcastAddressBytes[i] |= (byte)~HostSubnetMaskBytes[i];
                 }
-                else
-                {
-                    FrameData.AppendLine(frame[i].ToString("X2"));
-                }
+
+                WakeEndpoint = new IPEndPoint(new IPAddress(BroadcastAddressBytes), remoteHost.Port);
+            }
+            else
+            {
+                throw new InvalidOperationException("Unable to convert host address to directed broadcast subnet address.");
             }
 
-            using (System.IO.StreamWriter sw = new System.IO.StreamWriter(filename))
-            {
-                sw.Write(FrameData.ToString());
-            }
+            return WakeEndpoint;
         }
-
-#endif
 
         #endregion
     }

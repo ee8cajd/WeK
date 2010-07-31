@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -126,14 +126,14 @@
     <value>Tahoma, 8.25pt</value>
   </data>
   <data name="AbortButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>241, 356</value>
+    <value>621, 316</value>
   </data>
   <data name="AbortButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>80, 25</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="AbortButton.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="AbortButton.Text" xml:space="preserve">
     <value>Cancel</value>
@@ -148,7 +148,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;AbortButton.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="CommitButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -157,13 +157,13 @@
     <value>Tahoma, 8.25pt</value>
   </data>
   <data name="CommitButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>155, 356</value>
+    <value>535, 316</value>
   </data>
   <data name="CommitButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>80, 25</value>
   </data>
   <data name="CommitButton.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="CommitButton.Text" xml:space="preserve">
     <value>OK</value>
@@ -178,25 +178,148 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;CommitButton.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="HostDetailGroupBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="HostPhysicalAddress.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 113</value>
-  </data>
-  <data name="HostPhysicalAddress.Size" type="System.Drawing.Size, System.Drawing">
-    <value>228, 21</value>
-  </data>
-  <data name="HostPhysicalAddress.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
+    <value>Top, Bottom, Left, Right</value>
   </data>
   <data name="&gt;&gt;HostPhysicalAddress.Name" xml:space="preserve">
     <value>HostPhysicalAddress</value>
   </data>
   <data name="&gt;&gt;HostPhysicalAddress.Type" xml:space="preserve">
-    <value>Madcow.Wek.UI.Controls.PhysicalAddressControl, Madcow.Wek.UI.Controls, Version=1.0.3345.2299, Culture=neutral, PublicKeyToken=null</value>
+    <value>Madcow.Wek.UI.Controls.PhysicalAddressControl, Madcow.Wek.UI.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;HostPhysicalAddress.Parent" xml:space="preserve">
+    <value>HostDetailGroupBox</value>
+  </data>
+  <data name="&gt;&gt;HostPhysicalAddress.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;DescriptionTextBox.Name" xml:space="preserve">
+    <value>DescriptionTextBox</value>
+  </data>
+  <data name="&gt;&gt;DescriptionTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DescriptionTextBox.Parent" xml:space="preserve">
+    <value>HostDetailGroupBox</value>
+  </data>
+  <data name="&gt;&gt;DescriptionTextBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;OwnerTextBox.Name" xml:space="preserve">
+    <value>OwnerTextBox</value>
+  </data>
+  <data name="&gt;&gt;OwnerTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;OwnerTextBox.Parent" xml:space="preserve">
+    <value>HostDetailGroupBox</value>
+  </data>
+  <data name="&gt;&gt;OwnerTextBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;OwnerLabel.Name" xml:space="preserve">
+    <value>OwnerLabel</value>
+  </data>
+  <data name="&gt;&gt;OwnerLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;OwnerLabel.Parent" xml:space="preserve">
+    <value>HostDetailGroupBox</value>
+  </data>
+  <data name="&gt;&gt;OwnerLabel.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;MachineAddressLabel.Name" xml:space="preserve">
+    <value>MachineAddressLabel</value>
+  </data>
+  <data name="&gt;&gt;MachineAddressLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MachineAddressLabel.Parent" xml:space="preserve">
+    <value>HostDetailGroupBox</value>
+  </data>
+  <data name="&gt;&gt;MachineAddressLabel.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;DescriptionLabel.Name" xml:space="preserve">
+    <value>DescriptionLabel</value>
+  </data>
+  <data name="&gt;&gt;DescriptionLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DescriptionLabel.Parent" xml:space="preserve">
+    <value>HostDetailGroupBox</value>
+  </data>
+  <data name="&gt;&gt;DescriptionLabel.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;DescriptiveNameTextBox.Name" xml:space="preserve">
+    <value>DescriptiveNameTextBox</value>
+  </data>
+  <data name="&gt;&gt;DescriptiveNameTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DescriptiveNameTextBox.Parent" xml:space="preserve">
+    <value>HostDetailGroupBox</value>
+  </data>
+  <data name="&gt;&gt;DescriptiveNameTextBox.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;MachineNameLabel.Name" xml:space="preserve">
+    <value>MachineNameLabel</value>
+  </data>
+  <data name="&gt;&gt;MachineNameLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MachineNameLabel.Parent" xml:space="preserve">
+    <value>HostDetailGroupBox</value>
+  </data>
+  <data name="&gt;&gt;MachineNameLabel.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="HostDetailGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 4</value>
+  </data>
+  <data name="HostDetailGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>315, 184</value>
+  </data>
+  <data name="HostDetailGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="HostDetailGroupBox.Text" xml:space="preserve">
+    <value>Host Detail</value>
+  </data>
+  <data name="&gt;&gt;HostDetailGroupBox.Name" xml:space="preserve">
+    <value>HostDetailGroupBox</value>
+  </data>
+  <data name="&gt;&gt;HostDetailGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HostDetailGroupBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;HostDetailGroupBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="HostPhysicalAddress.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="HostPhysicalAddress.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 73</value>
+  </data>
+  <data name="HostPhysicalAddress.Size" type="System.Drawing.Size, System.Drawing">
+    <value>228, 21</value>
+  </data>
+  <data name="HostPhysicalAddress.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;HostPhysicalAddress.Name" xml:space="preserve">
+    <value>HostPhysicalAddress</value>
+  </data>
+  <data name="&gt;&gt;HostPhysicalAddress.Type" xml:space="preserve">
+    <value>Madcow.Wek.UI.Controls.PhysicalAddressControl, Madcow.Wek.UI.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;HostPhysicalAddress.Parent" xml:space="preserve">
     <value>HostDetailGroupBox</value>
@@ -205,19 +328,19 @@
     <value>0</value>
   </data>
   <data name="DescriptionTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
+    <value>Bottom, Left, Right</value>
   </data>
   <data name="DescriptionTextBox.Font" type="System.Drawing.Font, System.Drawing">
     <value>Tahoma, 8.25pt</value>
   </data>
   <data name="DescriptionTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 193</value>
+    <value>16, 153</value>
   </data>
   <data name="DescriptionTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>277, 21</value>
+    <value>281, 21</value>
   </data>
   <data name="DescriptionTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
+    <value>7</value>
   </data>
   <data name="&gt;&gt;DescriptionTextBox.Name" xml:space="preserve">
     <value>DescriptionTextBox</value>
@@ -232,19 +355,19 @@
     <value>1</value>
   </data>
   <data name="OwnerTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
+    <value>Bottom, Left, Right</value>
   </data>
   <data name="OwnerTextBox.Font" type="System.Drawing.Font, System.Drawing">
     <value>Tahoma, 8.25pt</value>
   </data>
   <data name="OwnerTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 153</value>
+    <value>16, 113</value>
   </data>
   <data name="OwnerTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>277, 21</value>
+    <value>281, 21</value>
   </data>
   <data name="OwnerTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
+    <value>5</value>
   </data>
   <data name="&gt;&gt;OwnerTextBox.Name" xml:space="preserve">
     <value>OwnerTextBox</value>
@@ -258,6 +381,9 @@
   <data name="&gt;&gt;OwnerTextBox.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="OwnerLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
   <data name="OwnerLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -265,13 +391,13 @@
     <value>Tahoma, 8.25pt</value>
   </data>
   <data name="OwnerLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>13, 137</value>
+    <value>13, 97</value>
   </data>
   <data name="OwnerLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>43, 13</value>
   </data>
   <data name="OwnerLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
+    <value>4</value>
   </data>
   <data name="OwnerLabel.Text" xml:space="preserve">
     <value>Owner:</value>
@@ -288,62 +414,8 @@
   <data name="&gt;&gt;OwnerLabel.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="NetworkAddressTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="NetworkAddressTextBox.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Tahoma, 8.25pt</value>
-  </data>
-  <data name="NetworkAddressTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 73</value>
-  </data>
-  <data name="NetworkAddressTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>277, 21</value>
-  </data>
-  <data name="NetworkAddressTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;NetworkAddressTextBox.Name" xml:space="preserve">
-    <value>NetworkAddressTextBox</value>
-  </data>
-  <data name="&gt;&gt;NetworkAddressTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;NetworkAddressTextBox.Parent" xml:space="preserve">
-    <value>HostDetailGroupBox</value>
-  </data>
-  <data name="&gt;&gt;NetworkAddressTextBox.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="NetworkAddressLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="NetworkAddressLabel.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Tahoma, 8.25pt</value>
-  </data>
-  <data name="NetworkAddressLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>13, 57</value>
-  </data>
-  <data name="NetworkAddressLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 13</value>
-  </data>
-  <data name="NetworkAddressLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="NetworkAddressLabel.Text" xml:space="preserve">
-    <value>Host Name or IP Address:</value>
-  </data>
-  <data name="&gt;&gt;NetworkAddressLabel.Name" xml:space="preserve">
-    <value>NetworkAddressLabel</value>
-  </data>
-  <data name="&gt;&gt;NetworkAddressLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;NetworkAddressLabel.Parent" xml:space="preserve">
-    <value>HostDetailGroupBox</value>
-  </data>
-  <data name="&gt;&gt;NetworkAddressLabel.ZOrder" xml:space="preserve">
-    <value>5</value>
+  <data name="MachineAddressLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
   </data>
   <data name="MachineAddressLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -352,13 +424,13 @@
     <value>Tahoma, 8.25pt</value>
   </data>
   <data name="MachineAddressLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>13, 97</value>
+    <value>13, 57</value>
   </data>
   <data name="MachineAddressLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>133, 13</value>
   </data>
   <data name="MachineAddressLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
+    <value>2</value>
   </data>
   <data name="MachineAddressLabel.Text" xml:space="preserve">
     <value>Physical Machine Address:</value>
@@ -373,7 +445,10 @@
     <value>HostDetailGroupBox</value>
   </data>
   <data name="&gt;&gt;MachineAddressLabel.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>4</value>
+  </data>
+  <data name="DescriptionLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
   </data>
   <data name="DescriptionLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -382,13 +457,13 @@
     <value>Tahoma, 8.25pt</value>
   </data>
   <data name="DescriptionLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>13, 177</value>
+    <value>13, 137</value>
   </data>
   <data name="DescriptionLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>64, 13</value>
   </data>
   <data name="DescriptionLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
+    <value>6</value>
   </data>
   <data name="DescriptionLabel.Text" xml:space="preserve">
     <value>Description:</value>
@@ -403,7 +478,7 @@
     <value>HostDetailGroupBox</value>
   </data>
   <data name="&gt;&gt;DescriptionLabel.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>5</value>
   </data>
   <data name="DescriptiveNameTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -415,7 +490,7 @@
     <value>16, 33</value>
   </data>
   <data name="DescriptiveNameTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>277, 21</value>
+    <value>281, 21</value>
   </data>
   <data name="DescriptiveNameTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -430,7 +505,7 @@
     <value>HostDetailGroupBox</value>
   </data>
   <data name="&gt;&gt;DescriptiveNameTextBox.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>6</value>
   </data>
   <data name="MachineNameLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -460,34 +535,82 @@
     <value>HostDetailGroupBox</value>
   </data>
   <data name="&gt;&gt;MachineNameLabel.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="HostDetailGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 4</value>
-  </data>
-  <data name="HostDetailGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>311, 224</value>
-  </data>
-  <data name="HostDetailGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="HostDetailGroupBox.Text" xml:space="preserve">
-    <value>Host Detail</value>
-  </data>
-  <data name="&gt;&gt;HostDetailGroupBox.Name" xml:space="preserve">
-    <value>HostDetailGroupBox</value>
-  </data>
-  <data name="&gt;&gt;HostDetailGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;HostDetailGroupBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;HostDetailGroupBox.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>7</value>
   </data>
   <data name="SecureOnGroupBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
+    <value>Bottom, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;SecureOnPromptCheckBox.Name" xml:space="preserve">
+    <value>SecureOnPromptCheckBox</value>
+  </data>
+  <data name="&gt;&gt;SecureOnPromptCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SecureOnPromptCheckBox.Parent" xml:space="preserve">
+    <value>SecureOnGroupBox</value>
+  </data>
+  <data name="&gt;&gt;SecureOnPromptCheckBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;SecureOnPasswordControl.Name" xml:space="preserve">
+    <value>SecureOnPasswordControl</value>
+  </data>
+  <data name="&gt;&gt;SecureOnPasswordControl.Type" xml:space="preserve">
+    <value>Madcow.Wek.UI.Controls.PhysicalAddressControl, Madcow.Wek.UI.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;SecureOnPasswordControl.Parent" xml:space="preserve">
+    <value>SecureOnGroupBox</value>
+  </data>
+  <data name="&gt;&gt;SecureOnPasswordControl.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;SecureOnpasswordLabel.Name" xml:space="preserve">
+    <value>SecureOnpasswordLabel</value>
+  </data>
+  <data name="&gt;&gt;SecureOnpasswordLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SecureOnpasswordLabel.Parent" xml:space="preserve">
+    <value>SecureOnGroupBox</value>
+  </data>
+  <data name="&gt;&gt;SecureOnpasswordLabel.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;SecureOnCheckBox.Name" xml:space="preserve">
+    <value>SecureOnCheckBox</value>
+  </data>
+  <data name="&gt;&gt;SecureOnCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SecureOnCheckBox.Parent" xml:space="preserve">
+    <value>SecureOnGroupBox</value>
+  </data>
+  <data name="&gt;&gt;SecureOnCheckBox.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="SecureOnGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 194</value>
+  </data>
+  <data name="SecureOnGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>315, 116</value>
+  </data>
+  <data name="SecureOnGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="SecureOnGroupBox.Text" xml:space="preserve">
+    <value>SecureOn Configuration</value>
+  </data>
+  <data name="&gt;&gt;SecureOnGroupBox.Name" xml:space="preserve">
+    <value>SecureOnGroupBox</value>
+  </data>
+  <data name="&gt;&gt;SecureOnGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SecureOnGroupBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;SecureOnGroupBox.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="SecureOnPromptCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -496,7 +619,7 @@
     <value>16, 43</value>
   </data>
   <data name="SecureOnPromptCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>241, 17</value>
+    <value>240, 17</value>
   </data>
   <data name="SecureOnPromptCheckBox.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -532,7 +655,7 @@
     <value>SecureOnPasswordControl</value>
   </data>
   <data name="&gt;&gt;SecureOnPasswordControl.Type" xml:space="preserve">
-    <value>Madcow.Wek.UI.Controls.PhysicalAddressControl, Madcow.Wek.UI.Controls, Version=1.0.3345.2299, Culture=neutral, PublicKeyToken=null</value>
+    <value>Madcow.Wek.UI.Controls.PhysicalAddressControl, Madcow.Wek.UI.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;SecureOnPasswordControl.Parent" xml:space="preserve">
     <value>SecureOnGroupBox</value>
@@ -577,7 +700,7 @@
     <value>16, 20</value>
   </data>
   <data name="SecureOnCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>213, 17</value>
+    <value>210, 17</value>
   </data>
   <data name="SecureOnCheckBox.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -597,28 +720,184 @@
   <data name="&gt;&gt;SecureOnCheckBox.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="SecureOnGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 234</value>
+  <data name="NetworksGroupBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Right</value>
   </data>
-  <data name="SecureOnGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>311, 116</value>
+  <data name="SetDefaultButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
   </data>
-  <data name="SecureOnGroupBox.TabIndex" type="System.Int32, mscorlib">
+  <data name="SetDefaultButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="SetDefaultButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>273, 271</value>
+  </data>
+  <data name="SetDefaultButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 25</value>
+  </data>
+  <data name="SetDefaultButton.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="SetDefaultButton.Text" xml:space="preserve">
+    <value>Set Default</value>
+  </data>
+  <data name="&gt;&gt;SetDefaultButton.Name" xml:space="preserve">
+    <value>SetDefaultButton</value>
+  </data>
+  <data name="&gt;&gt;SetDefaultButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SetDefaultButton.Parent" xml:space="preserve">
+    <value>NetworksGroupBox</value>
+  </data>
+  <data name="&gt;&gt;SetDefaultButton.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="NetworksListView.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="NetworkNameColumnHeader.Text" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="NetworkNameColumnHeader.Width" type="System.Int32, mscorlib">
+    <value>100</value>
+  </data>
+  <data name="HostAddressColumnHeader.Text" xml:space="preserve">
+    <value>Host Address</value>
+  </data>
+  <data name="HostAddressColumnHeader.Width" type="System.Int32, mscorlib">
+    <value>200</value>
+  </data>
+  <data name="NetworksListView.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 20</value>
+  </data>
+  <data name="NetworksListView.Size" type="System.Drawing.Size, System.Drawing">
+    <value>338, 245</value>
+  </data>
+  <data name="NetworksListView.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;NetworksListView.Name" xml:space="preserve">
+    <value>NetworksListView</value>
+  </data>
+  <data name="&gt;&gt;NetworksListView.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;NetworksListView.Parent" xml:space="preserve">
+    <value>NetworksGroupBox</value>
+  </data>
+  <data name="&gt;&gt;NetworksListView.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="SecureOnGroupBox.Text" xml:space="preserve">
-    <value>SecureOn Configuration</value>
+  <data name="RemoveNetworkButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
   </data>
-  <data name="&gt;&gt;SecureOnGroupBox.Name" xml:space="preserve">
-    <value>SecureOnGroupBox</value>
+  <data name="RemoveNetworkButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
-  <data name="&gt;&gt;SecureOnGroupBox.Type" xml:space="preserve">
+  <data name="RemoveNetworkButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>187, 271</value>
+  </data>
+  <data name="RemoveNetworkButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 25</value>
+  </data>
+  <data name="RemoveNetworkButton.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="RemoveNetworkButton.Text" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="&gt;&gt;RemoveNetworkButton.Name" xml:space="preserve">
+    <value>RemoveNetworkButton</value>
+  </data>
+  <data name="&gt;&gt;RemoveNetworkButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;RemoveNetworkButton.Parent" xml:space="preserve">
+    <value>NetworksGroupBox</value>
+  </data>
+  <data name="&gt;&gt;RemoveNetworkButton.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="AmendNetworkButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="AmendNetworkButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="AmendNetworkButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>101, 271</value>
+  </data>
+  <data name="AmendNetworkButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 25</value>
+  </data>
+  <data name="AmendNetworkButton.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="AmendNetworkButton.Text" xml:space="preserve">
+    <value>Amend...</value>
+  </data>
+  <data name="&gt;&gt;AmendNetworkButton.Name" xml:space="preserve">
+    <value>AmendNetworkButton</value>
+  </data>
+  <data name="&gt;&gt;AmendNetworkButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AmendNetworkButton.Parent" xml:space="preserve">
+    <value>NetworksGroupBox</value>
+  </data>
+  <data name="&gt;&gt;AmendNetworkButton.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="AddNetworkButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="AddNetworkButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 271</value>
+  </data>
+  <data name="AddNetworkButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 25</value>
+  </data>
+  <data name="AddNetworkButton.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="AddNetworkButton.Text" xml:space="preserve">
+    <value>Add...</value>
+  </data>
+  <data name="&gt;&gt;AddNetworkButton.Name" xml:space="preserve">
+    <value>AddNetworkButton</value>
+  </data>
+  <data name="&gt;&gt;AddNetworkButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AddNetworkButton.Parent" xml:space="preserve">
+    <value>NetworksGroupBox</value>
+  </data>
+  <data name="&gt;&gt;AddNetworkButton.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="NetworksGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>331, 4</value>
+  </data>
+  <data name="NetworksGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>370, 306</value>
+  </data>
+  <data name="NetworksGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="NetworksGroupBox.Text" xml:space="preserve">
+    <value>Networks</value>
+  </data>
+  <data name="&gt;&gt;NetworksGroupBox.Name" xml:space="preserve">
+    <value>NetworksGroupBox</value>
+  </data>
+  <data name="&gt;&gt;NetworksGroupBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;SecureOnGroupBox.Parent" xml:space="preserve">
+  <data name="&gt;&gt;NetworksGroupBox.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;SecureOnGroupBox.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;NetworksGroupBox.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -628,7 +907,7 @@
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>333, 389</value>
+    <value>713, 349</value>
   </data>
   <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
     <value>Tahoma, 8.25pt</value>
@@ -638,6 +917,18 @@
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Host</value>
+  </data>
+  <data name="&gt;&gt;NetworkNameColumnHeader.Name" xml:space="preserve">
+    <value>NetworkNameColumnHeader</value>
+  </data>
+  <data name="&gt;&gt;NetworkNameColumnHeader.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HostAddressColumnHeader.Name" xml:space="preserve">
+    <value>HostAddressColumnHeader</value>
+  </data>
+  <data name="&gt;&gt;HostAddressColumnHeader.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>AmendHost</value>
