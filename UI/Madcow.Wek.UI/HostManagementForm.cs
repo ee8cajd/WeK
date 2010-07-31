@@ -23,7 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 using System;
 using System.ComponentModel;
+using System.Drawing;
+using System.Net;
 using System.Reflection;
+using System.Text;
 using System.Windows.Forms;
 
 using Madcow.ComponentModel;
@@ -81,9 +84,31 @@ namespace Madcow.Wek.UI
         /// <param name="e">Event specific data.</param>
         private void WakeSelectionButton_Click(object sender, EventArgs e)
         {
+            StringBuilder WakeErrors = new StringBuilder();
+
+            Cursor.Current = Cursors.WaitCursor;
+
+            // Wake all selected hosts.
             foreach (ListViewItem SelectedItem in this.HostsListView.SelectedItems)
             {
-                WakeHost(SelectedItem.Tag as WolHost);
+                WolHost SelectedHost = SelectedItem.Tag as WolHost;
+
+                try
+                {
+                    WakeHost(SelectedHost);
+                }
+                catch (Exception Ex)
+                {
+                    WakeErrors.AppendFormat("{0}: {1}\n", SelectedHost.Name, Ex.Message);
+                }
+            }
+
+            Cursor.Current = null;
+
+            // If any hosts caused an exception, report the exception messages.
+            if (WakeErrors.Length > 0)
+            {
+                MessageBox.Show(WakeErrors.ToString(), "Host Wake Request", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -122,23 +147,39 @@ namespace Madcow.Wek.UI
         /// <param name="e">Event specific data.</param>
         private void HostManagementForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (_hostList.Modified)
+            if (_hostList.Modified || _hostList.Converting)
             {
-                DialogResult SavePrompt = MessageBox.Show("Configuration has been modified. Do you want to save the updates?",
-                                                          "WakeUp Question",
-                                                          MessageBoxButtons.YesNoCancel,
-                                                          MessageBoxIcon.Exclamation,
-                                                          MessageBoxDefaultButton.Button3);
-
-                switch (SavePrompt)
+                if (_hostList.Modified)
                 {
-                    case DialogResult.Yes:
-                        _hostList.Save();
-                        break;
+                    DialogResult SavePrompt = MessageBox.Show("Configuration has been modified. Do you want to save the updates?",
+                                                              "WeK Question",
+                                                              MessageBoxButtons.YesNoCancel,
+                                                              MessageBoxIcon.Exclamation,
+                                                              MessageBoxDefaultButton.Button3);
 
-                    case DialogResult.Cancel:
-                        e.Cancel = true;
-                        break;
+                    switch (SavePrompt)
+                    {
+                        case DialogResult.Yes:
+                            if (_hostList.Save() == false && e.CloseReason != CloseReason.WindowsShutDown)
+                            {
+                                MessageBox.Show(Resources.Error_FailedToSaveWekHosts,
+                                                "WeK Error",
+                                                MessageBoxButtons.OK,
+                                                MessageBoxIcon.Error);
+
+                                e.Cancel = true;
+                            }
+                            break;
+
+                        case DialogResult.Cancel:
+                            e.Cancel = true;
+                            break;
+                    }
+                }
+                else
+                {
+                    // If converting, always save without prompting.
+                    _hostList.Save();
                 }
             }
         }
@@ -214,14 +255,33 @@ namespace Madcow.Wek.UI
         /// <param name="e">Event specific data.</param>
         private void AwakenHostMenuItem_Click(object sender, EventArgs e)
         {
-            this.Cursor = Cursors.WaitCursor;
-
-            foreach (ListViewItem SelectedItem in this.HostsListView.SelectedItems)
+            if (this.AwakenHostMenuItem.DropDownItems.Count == 0)
             {
-                WakeHost(SelectedItem.Tag as WolHost);
-            }
+                this.Cursor = Cursors.WaitCursor;
 
-            this.Cursor = null;
+                foreach (ListViewItem SelectedItem in this.HostsListView.SelectedItems)
+                {
+                    WakeHost(SelectedItem.Tag as WolHost);
+                }
+
+                this.Cursor = null;
+            }
+        }
+
+        /// <summary>
+        /// Click Event handler for dynamic sub-items attached to the Awaken Host menu item.
+        /// </summary>
+        /// <param name="sender">Reference to the dynamically created menu item.</param>
+        /// <param name="e">Event specific data.</param>
+        private void AwakenHostSubMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.HostsListView.SelectedItems.Count == 1)
+            {
+                ToolStripMenuItem SourceMenuItem = sender as ToolStripMenuItem;
+                WolHost HostToWake = this.HostsListView.SelectedItems[0].Tag as WolHost;
+
+                WakeHost(HostToWake, (Guid)SourceMenuItem.Tag);
+            }
         }
 
         /// <summary>
@@ -290,8 +350,50 @@ namespace Madcow.Wek.UI
         private void SaveMenuItem_Click(object sender, EventArgs e)
         {
             this.Cursor = Cursors.WaitCursor;
-            _hostList.Save();
+
+            if (_hostList.Save() == false)
+            {
+                MessageBox.Show(Resources.Error_FailedToSaveWekHosts,
+                                "WeK Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+
             this.Cursor = null;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void HostContextMenuStrip_Opening(object sender, CancelEventArgs e)
+        {
+            WolHost SelectedHost = null;
+            this.AwakenHostMenuItem.DropDownItems.Clear();
+
+            if (this.HostsListView.SelectedItems.Count == 1)
+            {
+                SelectedHost = this.HostsListView.SelectedItems[0].Tag as WolHost;
+            }
+
+            if (SelectedHost != null && SelectedHost.Networks.Count > 1)
+            {
+                foreach (WolHostNetwork CurrentNetwork in SelectedHost.Networks)
+                {
+                    ToolStripMenuItem NewMenuItem = new ToolStripMenuItem();
+                    NewMenuItem.Text = CurrentNetwork.Name;
+                    NewMenuItem.Tag = CurrentNetwork.NetworkId;
+                    NewMenuItem.Click += AwakenHostSubMenuItem_Click;
+
+                    if (CurrentNetwork.NetworkId == SelectedHost.DefaultNetwork)
+                    {
+                        NewMenuItem.Font = new Font(this.AwakenHostMenuItem.Font, FontStyle.Bold);
+                    }
+
+                    this.AwakenHostMenuItem.DropDownItems.Add(NewMenuItem);
+                }
+            }
         }
 
         #endregion
@@ -395,10 +497,10 @@ namespace Madcow.Wek.UI
         private ListViewItem AddHostListViewItem(WolHost host)
         {
             ListViewItem NewHostItem = new ListViewItem();
-            NewHostItem.Text = GetProperty<WolHost, string>(host, Settings.Default.HostViewItemFirstLineProperty);
+            NewHostItem.Text = GetProperty<WolHost, string>(host, Settings.Default.HostViewItemFirstLineProperty) ?? String.Empty;
             NewHostItem.SubItems.AddRange(new string[] { 
-                                            GetProperty<WolHost, string>(host, Settings.Default.HostViewItemSecondLineProperty),
-                                            GetProperty<WolHost, string>(host, Settings.Default.HostViewItemThirdLineProperty)
+                                            GetProperty<WolHost, string>(host, Settings.Default.HostViewItemSecondLineProperty) ?? String.Empty,
+                                            GetProperty<WolHost, string>(host, Settings.Default.HostViewItemThirdLineProperty) ?? String.Empty
                                           });
             NewHostItem.ImageIndex = GetMachineIconIndex(host.RequireSecureOn);
             NewHostItem.Tag = host;
@@ -433,34 +535,37 @@ namespace Madcow.Wek.UI
         {
             object Result = null;
 
-            Type SourceType = typeof(TSource);
-            DefaultFormatStringAttribute SourceFormatAttribute = null;
-
-            // Get the PropertyInfo for the property of interest on the source type.
-            PropertyInfo SourcePropertyInfo = SourceType.GetProperty(propertyName);
-
-            // Check for Custom Attributes.
-            foreach (object SourcePropertyAttribute in SourcePropertyInfo.GetCustomAttributes(false))
+            if(String.IsNullOrEmpty(propertyName) == false)
             {
-                if (SourcePropertyAttribute is DefaultFormatStringAttribute)
-                {
-                    // The property has beenn marked with a Default Format String attribute which
-                    // should be used to return the value.
-                    SourceFormatAttribute = SourcePropertyAttribute as DefaultFormatStringAttribute;
-                }
-            }
-
-            if(SourceFormatAttribute != null)
-            {
-                // The type of the property of interest on the source type must implement IFormattable
-                // for the DefaultFormatStringAttribute to make any sense. The following will therefore
-                // raise an exception if the type of the property of interest doesn't meet this requirement.
-                IFormattable FormattableValue = (IFormattable)SourcePropertyInfo.GetValue(source, null);
-                Result = FormattableValue.ToString(SourceFormatAttribute.FormatString, null);
-            }
-            else
-            {
-                Result = SourcePropertyInfo.GetValue(source, null);
+	            Type SourceType = typeof(TSource);
+	            DefaultFormatStringAttribute SourceFormatAttribute = null;
+	
+	            // Get the PropertyInfo for the property of interest on the source type.
+	            PropertyInfo SourcePropertyInfo = SourceType.GetProperty(propertyName);
+	
+	            // Check for Custom Attributes.
+	            foreach (object SourcePropertyAttribute in SourcePropertyInfo.GetCustomAttributes(false))
+	            {
+	                if (SourcePropertyAttribute is DefaultFormatStringAttribute)
+	                {
+	                    // The property has been marked with a Default Format String attribute which
+	                    // should be used to return the value.
+	                    SourceFormatAttribute = SourcePropertyAttribute as DefaultFormatStringAttribute;
+	                }
+	            }
+	
+	            if(SourceFormatAttribute != null)
+	            {
+	                // The type of the property of interest on the source type must implement IFormattable
+	                // for the DefaultFormatStringAttribute to make any sense. The following will therefore
+	                // raise an exception if the type of the property of interest doesn't meet this requirement.
+	                IFormattable FormattableValue = (IFormattable)SourcePropertyInfo.GetValue(source, null);
+	                Result = FormattableValue.ToString(SourceFormatAttribute.FormatString, null);
+	            }
+	            else
+	            {
+	                Result = SourcePropertyInfo.GetValue(source, null);
+	            }
             }
 
             return (TReturn)Result;
@@ -472,12 +577,63 @@ namespace Madcow.Wek.UI
         /// <param name="hostToWake">The WolHost object describing the host to wake.</param>
         private void WakeHost(WolHost hostToWake)
         {
+            WakeHost(hostToWake, hostToWake.DefaultNetwork);
+        }
+
+        /// <summary>
+        /// Wakes a host, handling any required SecureOn password prompting.
+        /// </summary>
+        /// <param name="hostToWake">The WolHost object describing the host to wake.</param>
+        /// <param name="networkToWake"></param>
+        private void WakeHost(WolHost hostToWake, Guid networkId)
+        {
             if (hostToWake != null)
             {
+                // Retrieve the network details for waking the host.
+                WolHostNetwork Network = hostToWake.Networks[networkId];
+                if (Network == null)
+                {
+                    throw new InvalidOperationException("Host cannot be woken as no suitable network has been defined.");
+                }
+
+                IPEndPoint HostEndpoint = null;
+
+                if (Network.Locality == WolHostNetwork.NetworkLocality.Remote)
+                {
+                    try
+                    {
+                        IPAddress[] ResolvedAddresses = Dns.GetHostAddresses(Network.Address);
+                        if (ResolvedAddresses != null && ResolvedAddresses.Length > 0)
+                        {
+                            HostEndpoint = new IPEndPoint(ResolvedAddresses[0], Network.Port);
+                        }
+                    }
+                    catch (System.Net.Sockets.SocketException)
+                    {
+                        HostEndpoint = null;
+                    }
+
+                    // Check that a valid endpoint has been prepared. A remote host is not valid for awakening
+                    // if the endpoint is not valid by this point - falling back to local would not be any use.
+                    if (HostEndpoint == null)
+                    {
+                        // TODO: Tidy this scenario
+                        throw new InvalidOperationException("Invalid host address for remote host.");
+                    }
+                }
+
                 if (hostToWake.RequireSecureOn == false)
                 {
-                    hostToWake.Weight++;
-                    WakeOnLan.WakeMachine(hostToWake.MachineAddress);
+                    if (Network.Locality == WolHostNetwork.NetworkLocality.Remote)
+                    {
+                        WakeOnLan.WakeMachine(hostToWake.MachineAddress,
+                                              HostEndpoint,
+                                              Network.SubnetMask);
+                    }
+                    else
+                    {
+                        WakeOnLan.WakeMachine(hostToWake.MachineAddress);
+                    }
                 }
                 else
                 {
@@ -489,19 +645,37 @@ namespace Madcow.Wek.UI
                             if (SecureOnPrompt.ShowDialog() == DialogResult.OK)
                             {
                                 // Use the supplied SecureOn Password.
-                                hostToWake.Weight++;
-                                WakeOnLan.WakeMachine(hostToWake.MachineAddress, SecureOnPrompt.SecureOnPassword);
+                                if (Network.Locality == WolHostNetwork.NetworkLocality.Remote)
+                                {
+                                    WakeOnLan.WakeMachine(hostToWake.MachineAddress,
+                                                          SecureOnPrompt.SecureOnPassword,
+                                                          HostEndpoint,
+                                                          Network.SubnetMask);
+                                }
+                                else
+                                {
+                                    WakeOnLan.WakeMachine(hostToWake.MachineAddress, SecureOnPrompt.SecureOnPassword);
+                                }
                             }
                         }
                     }
                     else
                     {
                         // Use the stored SecureOn Password.
-                        hostToWake.Weight++;
-                        WakeOnLan.WakeMachine(hostToWake.MachineAddress, hostToWake.SecureOnPassword);
+                        if (Network.Locality == WolHostNetwork.NetworkLocality.Remote)
+                        {
+                            WakeOnLan.WakeMachine(hostToWake.MachineAddress,
+                                                  hostToWake.SecureOnPassword,
+                                                  HostEndpoint,
+                                                  Network.SubnetMask);
+                        }
+                        else
+                        {
+                            WakeOnLan.WakeMachine(hostToWake.MachineAddress, hostToWake.SecureOnPassword);
+                        }
                     }
                 }
-            }
+            }   
         }
 
         #endregion

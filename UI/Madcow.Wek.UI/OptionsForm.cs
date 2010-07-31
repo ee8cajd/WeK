@@ -37,6 +37,8 @@ namespace Madcow.Wek.UI
     /// </summary>
     public partial class OptionsForm : Form
     {
+        #region Constructors
+
         /// <summary>
         /// 
         /// </summary>
@@ -50,9 +52,9 @@ namespace Madcow.Wek.UI
                                             typeof(HostDoubleClickAction), 
                                             Resources.ResourceManager);
 
-            listViewItemDisplay1.TopRowValue = Settings.Default.HostViewItemFirstLineProperty;
-            listViewItemDisplay1.MiddleRowValue = Settings.Default.HostViewItemSecondLineProperty;
-            listViewItemDisplay1.BottomRowValue = Settings.Default.HostViewItemThirdLineProperty;
+            listViewItemDisplay1.TopRowValue = Settings.Default.HostViewItemFirstLineProperty ?? String.Empty;
+            listViewItemDisplay1.MiddleRowValue = Settings.Default.HostViewItemSecondLineProperty ?? String.Empty;
+            listViewItemDisplay1.BottomRowValue = Settings.Default.HostViewItemThirdLineProperty ?? String.Empty;
 
             this.DoubleClickBehaviourComboBox.SelectedValue = Enum.Parse(typeof(HostDoubleClickAction), 
                                                                          Settings.Default.HostViewItemDoubleClickAction,
@@ -60,6 +62,10 @@ namespace Madcow.Wek.UI
 
             this.ShowSecureOnHintCheckBox.Checked = Settings.Default.ShowSecureOnHostHint;
         }
+
+        #endregion
+
+        #region Event Handlers
 
         /// <summary>
         /// 
@@ -80,5 +86,7 @@ namespace Madcow.Wek.UI
                 Settings.Default.Save();
             }
         }
+
+        #endregion
     }
 }

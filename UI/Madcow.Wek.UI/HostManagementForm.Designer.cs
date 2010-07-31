@@ -32,9 +32,9 @@ namespace Madcow.Wek.UI
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HostManagementForm));
             this.WakeSelectionButton = new System.Windows.Forms.Button();
             this.HostsListView = new System.Windows.Forms.ListView();
-            this.MachineNameColumnHeader = new System.Windows.Forms.ColumnHeader();
-            this.PhysicalAddressColumnHeader = new System.Windows.Forms.ColumnHeader();
-            this.DescriptiveCommentColumnHeader = new System.Windows.Forms.ColumnHeader();
+            this.MachineNameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.PhysicalAddressColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.DescriptiveCommentColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.HostContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.AwakenHostMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AmendHostMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -44,7 +44,7 @@ namespace Madcow.Wek.UI
             this.HostIconImageList = new System.Windows.Forms.ImageList(this.components);
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SaveMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.fileToolStripMenuItemSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.ExitMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.HostMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,6 +52,7 @@ namespace Madcow.Wek.UI
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutWekMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.WekMenuStrip = new System.Windows.Forms.MenuStrip();
+            this.HostManagementPersistWindow = new Madcow.UI.Controls.PersistWindow(this.components);
             this.HostContextMenuStrip.SuspendLayout();
             this.WekMenuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -91,8 +92,8 @@ namespace Madcow.Wek.UI
             this.HostsListView.UseCompatibleStateImageBehavior = false;
             this.HostsListView.View = System.Windows.Forms.View.Tile;
             this.HostsListView.DrawItem += new System.Windows.Forms.DrawListViewItemEventHandler(this.HostsListView_DrawItem);
-            this.HostsListView.DoubleClick += new System.EventHandler(this.HostsListView_DoubleClick);
             this.HostsListView.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.HostsListView_ItemSelectionChanged);
+            this.HostsListView.DoubleClick += new System.EventHandler(this.HostsListView_DoubleClick);
             // 
             // MachineNameColumnHeader
             // 
@@ -116,6 +117,7 @@ namespace Madcow.Wek.UI
             this.AddHostMenuItem});
             this.HostContextMenuStrip.Name = "HostContextMenuStrip";
             this.HostContextMenuStrip.Size = new System.Drawing.Size(164, 98);
+            this.HostContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.HostContextMenuStrip_Opening);
             // 
             // AwakenHostMenuItem
             // 
@@ -162,7 +164,7 @@ namespace Madcow.Wek.UI
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.SaveMenuItem,
-            this.toolStripMenuItem2,
+            this.fileToolStripMenuItemSeparator,
             this.ExitMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(35, 20);
@@ -176,10 +178,10 @@ namespace Madcow.Wek.UI
             this.SaveMenuItem.Text = "&Save";
             this.SaveMenuItem.Click += new System.EventHandler(this.SaveMenuItem_Click);
             // 
-            // toolStripMenuItem2
+            // fileToolStripMenuItemSeparator
             // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(144, 6);
+            this.fileToolStripMenuItemSeparator.Name = "fileToolStripMenuItemSeparator";
+            this.fileToolStripMenuItemSeparator.Size = new System.Drawing.Size(144, 6);
             // 
             // ExitMenuItem
             // 
@@ -238,6 +240,13 @@ namespace Madcow.Wek.UI
             this.WekMenuStrip.TabIndex = 0;
             this.WekMenuStrip.Text = "WekMenuStrip";
             // 
+            // HostManagementPersistWindow
+            // 
+            this.HostManagementPersistWindow.ApplicationName = "WeK";
+            this.HostManagementPersistWindow.Attached = true;
+            this.HostManagementPersistWindow.ContainerControl = this;
+            this.HostManagementPersistWindow.FormName = "HostManagement";
+            // 
             // HostManagementForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -272,7 +281,7 @@ namespace Madcow.Wek.UI
         private System.Windows.Forms.ContextMenuStrip HostContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem SaveMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripSeparator fileToolStripMenuItemSeparator;
         private System.Windows.Forms.ToolStripMenuItem ExitMenuItem;
         private System.Windows.Forms.ToolStripMenuItem HostMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
@@ -285,6 +294,7 @@ namespace Madcow.Wek.UI
         private System.Windows.Forms.ToolStripMenuItem RemoveHostMenuItem;
         private System.Windows.Forms.ToolStripMenuItem AwakenHostMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private Madcow.UI.Controls.PersistWindow HostManagementPersistWindow;
     }
 }
 

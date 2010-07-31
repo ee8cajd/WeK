@@ -36,8 +36,6 @@ namespace Madcow.Wek.UI
             this.DescriptionTextBox = new System.Windows.Forms.TextBox();
             this.OwnerTextBox = new System.Windows.Forms.TextBox();
             this.OwnerLabel = new System.Windows.Forms.Label();
-            this.NetworkAddressTextBox = new System.Windows.Forms.TextBox();
-            this.NetworkAddressLabel = new System.Windows.Forms.Label();
             this.MachineAddressLabel = new System.Windows.Forms.Label();
             this.DescriptionLabel = new System.Windows.Forms.Label();
             this.DescriptiveNameTextBox = new System.Windows.Forms.TextBox();
@@ -47,8 +45,17 @@ namespace Madcow.Wek.UI
             this.SecureOnPasswordControl = new Madcow.Wek.UI.Controls.PhysicalAddressControl();
             this.SecureOnpasswordLabel = new System.Windows.Forms.Label();
             this.SecureOnCheckBox = new System.Windows.Forms.CheckBox();
+            this.NetworksGroupBox = new System.Windows.Forms.GroupBox();
+            this.SetDefaultButton = new System.Windows.Forms.Button();
+            this.NetworksListView = new System.Windows.Forms.ListView();
+            this.NetworkNameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.HostAddressColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.RemoveNetworkButton = new System.Windows.Forms.Button();
+            this.AmendNetworkButton = new System.Windows.Forms.Button();
+            this.AddNetworkButton = new System.Windows.Forms.Button();
             this.HostDetailGroupBox.SuspendLayout();
             this.SecureOnGroupBox.SuspendLayout();
+            this.NetworksGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // AbortButton
@@ -72,8 +79,6 @@ namespace Madcow.Wek.UI
             this.HostDetailGroupBox.Controls.Add(this.DescriptionTextBox);
             this.HostDetailGroupBox.Controls.Add(this.OwnerTextBox);
             this.HostDetailGroupBox.Controls.Add(this.OwnerLabel);
-            this.HostDetailGroupBox.Controls.Add(this.NetworkAddressTextBox);
-            this.HostDetailGroupBox.Controls.Add(this.NetworkAddressLabel);
             this.HostDetailGroupBox.Controls.Add(this.MachineAddressLabel);
             this.HostDetailGroupBox.Controls.Add(this.DescriptionLabel);
             this.HostDetailGroupBox.Controls.Add(this.DescriptiveNameTextBox);
@@ -100,16 +105,6 @@ namespace Madcow.Wek.UI
             // 
             resources.ApplyResources(this.OwnerLabel, "OwnerLabel");
             this.OwnerLabel.Name = "OwnerLabel";
-            // 
-            // NetworkAddressTextBox
-            // 
-            resources.ApplyResources(this.NetworkAddressTextBox, "NetworkAddressTextBox");
-            this.NetworkAddressTextBox.Name = "NetworkAddressTextBox";
-            // 
-            // NetworkAddressLabel
-            // 
-            resources.ApplyResources(this.NetworkAddressLabel, "NetworkAddressLabel");
-            this.NetworkAddressLabel.Name = "NetworkAddressLabel";
             // 
             // MachineAddressLabel
             // 
@@ -165,6 +160,69 @@ namespace Madcow.Wek.UI
             this.SecureOnCheckBox.UseVisualStyleBackColor = true;
             this.SecureOnCheckBox.CheckedChanged += new System.EventHandler(this.SecureOnCheckBox_CheckedChanged);
             // 
+            // NetworksGroupBox
+            // 
+            resources.ApplyResources(this.NetworksGroupBox, "NetworksGroupBox");
+            this.NetworksGroupBox.Controls.Add(this.SetDefaultButton);
+            this.NetworksGroupBox.Controls.Add(this.NetworksListView);
+            this.NetworksGroupBox.Controls.Add(this.RemoveNetworkButton);
+            this.NetworksGroupBox.Controls.Add(this.AmendNetworkButton);
+            this.NetworksGroupBox.Controls.Add(this.AddNetworkButton);
+            this.NetworksGroupBox.Name = "NetworksGroupBox";
+            this.NetworksGroupBox.TabStop = false;
+            // 
+            // SetDefaultButton
+            // 
+            resources.ApplyResources(this.SetDefaultButton, "SetDefaultButton");
+            this.SetDefaultButton.Name = "SetDefaultButton";
+            this.SetDefaultButton.UseVisualStyleBackColor = true;
+            this.SetDefaultButton.Click += new System.EventHandler(this.SetDefaultButton_Click);
+            // 
+            // NetworksListView
+            // 
+            resources.ApplyResources(this.NetworksListView, "NetworksListView");
+            this.NetworksListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.NetworkNameColumnHeader,
+            this.HostAddressColumnHeader});
+            this.NetworksListView.FullRowSelect = true;
+            this.NetworksListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.NetworksListView.HideSelection = false;
+            this.NetworksListView.MultiSelect = false;
+            this.NetworksListView.Name = "NetworksListView";
+            this.NetworksListView.ShowGroups = false;
+            this.NetworksListView.UseCompatibleStateImageBehavior = false;
+            this.NetworksListView.View = System.Windows.Forms.View.Details;
+            this.NetworksListView.SelectedIndexChanged += new System.EventHandler(this.NetworksListView_SelectedIndexChanged);
+            // 
+            // NetworkNameColumnHeader
+            // 
+            resources.ApplyResources(this.NetworkNameColumnHeader, "NetworkNameColumnHeader");
+            // 
+            // HostAddressColumnHeader
+            // 
+            resources.ApplyResources(this.HostAddressColumnHeader, "HostAddressColumnHeader");
+            // 
+            // RemoveNetworkButton
+            // 
+            resources.ApplyResources(this.RemoveNetworkButton, "RemoveNetworkButton");
+            this.RemoveNetworkButton.Name = "RemoveNetworkButton";
+            this.RemoveNetworkButton.UseVisualStyleBackColor = true;
+            this.RemoveNetworkButton.Click += new System.EventHandler(this.RemoveNetworkButton_Click);
+            // 
+            // AmendNetworkButton
+            // 
+            resources.ApplyResources(this.AmendNetworkButton, "AmendNetworkButton");
+            this.AmendNetworkButton.Name = "AmendNetworkButton";
+            this.AmendNetworkButton.UseVisualStyleBackColor = true;
+            this.AmendNetworkButton.Click += new System.EventHandler(this.AmendNetworkButton_Click);
+            // 
+            // AddNetworkButton
+            // 
+            resources.ApplyResources(this.AddNetworkButton, "AddNetworkButton");
+            this.AddNetworkButton.Name = "AddNetworkButton";
+            this.AddNetworkButton.UseVisualStyleBackColor = true;
+            this.AddNetworkButton.Click += new System.EventHandler(this.AddNetworkButton_Click);
+            // 
             // AmendHost
             // 
             this.AcceptButton = this.CommitButton;
@@ -172,6 +230,7 @@ namespace Madcow.Wek.UI
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
             this.CancelButton = this.AbortButton;
+            this.Controls.Add(this.NetworksGroupBox);
             this.Controls.Add(this.SecureOnGroupBox);
             this.Controls.Add(this.HostDetailGroupBox);
             this.Controls.Add(this.CommitButton);
@@ -186,6 +245,7 @@ namespace Madcow.Wek.UI
             this.HostDetailGroupBox.PerformLayout();
             this.SecureOnGroupBox.ResumeLayout(false);
             this.SecureOnGroupBox.PerformLayout();
+            this.NetworksGroupBox.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -199,8 +259,6 @@ namespace Madcow.Wek.UI
         private System.Windows.Forms.TextBox DescriptionTextBox;
         private System.Windows.Forms.TextBox OwnerTextBox;
         private System.Windows.Forms.Label OwnerLabel;
-        private System.Windows.Forms.TextBox NetworkAddressTextBox;
-        private System.Windows.Forms.Label NetworkAddressLabel;
         private System.Windows.Forms.Label MachineAddressLabel;
         private System.Windows.Forms.Label DescriptionLabel;
         private System.Windows.Forms.TextBox DescriptiveNameTextBox;
@@ -210,5 +268,13 @@ namespace Madcow.Wek.UI
         private Madcow.Wek.UI.Controls.PhysicalAddressControl SecureOnPasswordControl;
         private System.Windows.Forms.Label SecureOnpasswordLabel;
         private System.Windows.Forms.CheckBox SecureOnPromptCheckBox;
+        private System.Windows.Forms.GroupBox NetworksGroupBox;
+        private System.Windows.Forms.ListView NetworksListView;
+        private System.Windows.Forms.Button RemoveNetworkButton;
+        private System.Windows.Forms.Button AmendNetworkButton;
+        private System.Windows.Forms.Button AddNetworkButton;
+        private System.Windows.Forms.ColumnHeader NetworkNameColumnHeader;
+        private System.Windows.Forms.ColumnHeader HostAddressColumnHeader;
+        private System.Windows.Forms.Button SetDefaultButton;
     }
 }

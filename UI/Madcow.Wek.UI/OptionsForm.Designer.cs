@@ -63,6 +63,7 @@ namespace Madcow.Wek.UI
             this.listViewItemDisplay1.BottomRowValue = null;
             this.listViewItemDisplay1.ItemImage = global::Madcow.Wek.UI.Properties.Resources.machine2;
             this.listViewItemDisplay1.ItemObjectType = null;
+            this.listViewItemDisplay1.MaximumSize = new System.Drawing.Size(2, 96);
             this.listViewItemDisplay1.MiddleRowValue = null;
             this.listViewItemDisplay1.MinimumSize = new System.Drawing.Size(356, 96);
             this.listViewItemDisplay1.Name = "listViewItemDisplay1";

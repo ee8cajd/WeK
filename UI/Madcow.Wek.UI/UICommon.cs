@@ -137,6 +137,46 @@ namespace Madcow.Wek.UI
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="sourceControl"></param>
+        /// <returns></returns>
+        internal static string GetControlText(Control sourceControl)
+        {
+            return String.IsNullOrEmpty(sourceControl.Text) == false ? sourceControl.Text : null;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="targetControl"></param>
+        /// <param name="textToSet"></param>
+        internal static void SetControlText(Control targetControl, string textToSet)
+        {
+            targetControl.Text = (String.IsNullOrEmpty(textToSet) == false ? textToSet : null);
+        }
+
+        /// <summary>
+        /// Updates the form title based on the Action Mode in which the form has been opened.
+        /// </summary>
+        /// <param name="targetForm"></param>
+        /// <param name="mode"></param>
+        internal static void SetTitle(Form targetForm, ActionMode action)
+        {
+            switch (action)
+            {
+                case ActionMode.Add:
+                    targetForm.Text = "New " + targetForm.Text;
+                    break;
+
+                case ActionMode.Amend:
+                case ActionMode.View:
+                    targetForm.Text += " Properties";
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public struct ComboItemHelper
         {
             private string _display;
